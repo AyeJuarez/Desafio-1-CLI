@@ -7,6 +7,7 @@ const CartWidget = (props) => {
         <div className='CartWidget'>
             <img src={logo} alt='logo' />
             <h1>{ props.greeting }</h1>
+            
         </div>
         
     )

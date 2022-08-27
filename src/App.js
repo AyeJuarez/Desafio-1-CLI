@@ -16,6 +16,8 @@ import CartWidget from './components/CartWidget/CartWidget';
 import campera from './components/CardComponent/campera.jpg';
 import campera1 from './components/CardComponent/campera1.jpg';
 import campera2 from './components/CardComponent/campera2.jpg';
+import ItemCount from './components/itemCount/itemCount';
+
 
 /*function App() {
     return (
@@ -37,11 +39,17 @@ import campera2 from './components/CardComponent/campera2.jpg';
 
 // Desafio 3 Componentes
 
+const onAdd = (quantity) => {
+  console.log("Compraste", quantity, "cantidades");
+}  
+
   class App extends React.Component{
     render (){
       return (
         <div>
           <CartWidget greeting='Bienvenid@!' />
+          <br/>
+          <br/>
           <div className='UserSection'>
               <CardComponent 
               name='CAMPERA HELD MUJER'
@@ -62,7 +70,11 @@ import campera2 from './components/CardComponent/campera2.jpg';
               price='Precio: $70.000'
               />
           </div>
+          <div>
+              <ItemCount initial={1} stock={5} onAdd={onAdd} />
+          </div>  
         </div>
+        
       )
     }
   }
