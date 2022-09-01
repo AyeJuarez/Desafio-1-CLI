@@ -11,13 +11,15 @@ import Products from './pages/products';
 */
 
 //Importacion del Desafio 3
-import CardComponent from './components/CardComponent/CardComponent';
+
 import CartWidget from './components/CartWidget/CartWidget';
-import campera from './components/CardComponent/campera.jpg';
+/* import campera from './components/CardComponent/campera.jpg';
 import campera1 from './components/CardComponent/campera1.jpg';
 import campera2 from './components/CardComponent/campera2.jpg';
-import ItemCount from './components/itemCount/itemCount';
+import CardComponent from './components/CardComponent/CardComponent'; */
 
+//Importacion para el Desafio 5 -Maps
+import ItemList from './components/ItemListContainer/ItemList';
 
 /*function App() {
     return (
@@ -37,47 +39,24 @@ import ItemCount from './components/itemCount/itemCount';
     )
   }*/
 
-// Desafio 3 Componentes
 
-const onAdd = (quantity) => {
-  console.log("Compraste", quantity, "cantidades");
-}  
 
-  class App extends React.Component{
-    render (){
-      return (
-        <div>
-          <CartWidget greeting='Bienvenid@!' />
-          <br/>
-          <br/>
-          <div className='UserSection'>
-              <CardComponent 
-              name='CAMPERA HELD MUJER'
-              description='Cuello suave, cremalleras de ventilación y estiramiento en la parte interior del brazo garantizan una gran comodidad de uso. Está disponible 3 colores diferentes.'
-              img={campera}
-              price='Precio: $240.000'
-              />
-              <CardComponent 
-              name='CAMPERA ESTILO TOURING MUJER'
-              description='Campera de mujer para motos de touring con corte a medida. Particularmente cómoda de llevar permite ajustar el ancho del brazo, la cintura y la cadera.'
-              img={campera1}
-              price='Precio: $164.000'
-              />
-              <CardComponent 
-              name='CAMPERA TUCANO URBANO'
-              description='Cazadora cuatro estaciones de corte medio, transpirable, cortaviento e impermeable, corte femenino'
-              img={campera2}
-              price='Precio: $70.000'
-              />
-          </div>
-          <div>
-              <ItemCount initial={1} stock={5} onAdd={onAdd} />
-          </div>  
-        </div>
-        
-      )
-    }
-  }
+
+const App = () => {
+
+  return (
+    <div>
+      <CartWidget greeting='Bienvenid@!' />
+      <br />
+      <br />
+      <div className='UserSection'>
+        <ItemList/>
+      </div>
+    </div>
+
+  )
+}
+  
 
 
 export default App;

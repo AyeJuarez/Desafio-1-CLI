@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  align-content: center;
   
 }
 
@@ -15,8 +16,8 @@ section{
 
 .UserSection{
   display: flex;
-  justify-content: space-evenly;
   margin-top: 20px;
+  width: 100%;
   margin-bottom: 20px;
   border: 4px solid black;
 }
