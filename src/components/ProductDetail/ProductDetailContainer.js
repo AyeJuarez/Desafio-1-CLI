@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { getProductosById} from '../ItemListContainer/asyncmock';
-import ItemDetail from './ItemDetail';
+import { getProductosById} from './asyncmock';
+import ProductDetail from './ProductDetail';
 import { useParams } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 
 
-const ItemDetailContainer = () => {
+const ProductDetailContainer = () => {
     const [product, setProduct] = useState({})
     const [loading, setLoading] = useState(false)
     const { productId } = useParams();
@@ -25,9 +25,9 @@ const ItemDetailContainer = () => {
 
     return (
         <div>
-            {loading ? <Loader /> : product && <ItemDetail product = {product} />}
+            {loading ? <Loader /> : product && <ProductDetail product = {product} />}
         </div>
     )
 }
 
-export default ItemDetailContainer
+export default ProductDetailContainer

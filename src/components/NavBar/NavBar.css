@@ -1,3 +1,20 @@
+
+
 .navbar-nav a{
     font-size: 18px;
+}
+
+.card-img{
+    width: 80%;
+}
+
+.logo{
+    width: 100%;
+}
+
+.nav-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }

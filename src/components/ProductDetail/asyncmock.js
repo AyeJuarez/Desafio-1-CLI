@@ -67,13 +67,13 @@ const productos =
         }
     ]
 
-    export const getProductos = () => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(productos)
-            }, 2000)
-        })
-      }
+export const getProductos = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(productos)
+        }, 2000)
+    })
+}
 
 export const getProductosByCategory = (categoryId) => {
     return new Promise((resolve, reject) => {
@@ -100,3 +100,4 @@ export const getProductosById = (id) => {
         }, 2000)
     })
 }
+
