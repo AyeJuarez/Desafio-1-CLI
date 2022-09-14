@@ -1,26 +1,42 @@
 import { useState } from 'react'
+import styles from './styles.module.css'
 
-const ItemCount = ({ stock, onAdd }) => {
-    const [count, setCount] = useState(1)
+const ItemCount = (props) => {
+    const { id, stock } = props
 
-    const increment = () => {
-        if(count < stock ) {
-            setCount(count + 1)
-        }
+    const [items, setItems] = useState(1)
+
+    const onAdd = () => {
+        if (items === stock) return
+        setItems(items + 1)
     }
 
-    const decrement = () => {
-        if(count > 1) {
-            setCount(count - 1)
-        }
+    const onDecrement = () => {
+        if (items === 1) return
+        setItems(items - 1)
     }
+
     return (
-        <div>
-            <h1>{count}</h1>
-            <button onClick={decrement}>-</button>
-            <button onClick={increment}>+</button>
-            <button onClick={() => onAdd(count)}>Agregar al carrito</button>
-        </div>
+        <>
+            <div className={styles['item-count-container']}>
+                <span>Cantidad: {items}</span>
+                <span className={styles.whispered}>{`(En existencias: ${stock})`}</span>
+                <div className={styles.controls}>
+                    <div className={styles.control} onClick={onDecrement}>
+                        -
+                    </div>
+                    <div className={styles.control} onClick={onAdd}>
+                        +
+                    </div>
+                </div>
+            </div>
+            <div
+                className={styles['add-cart']}
+                onClick={() => alert(`Producto con id ${id} agregado con exito`)}
+            >
+                Agregar al carrito
+            </div>
+        </>
     )
 }
 

@@ -1,40 +1,28 @@
-import React from 'react';
-import './style.css';
-import NavBar from './components/NavBar/NavBar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { CartWidget } from './components/CartWidget'
+import { Navbar } from './components/Navbar'
+import { Routes, Route } from 'react-router-dom'
 import Home from './components/pages/Home'
-import Contact from './components/pages/Contact'
+
 import Products from './components/pages/Products'
-import Cart from './components/pages/Cart'
-import Login from './components/pages/Login'
-import Register from './components/pages/Register'
-import ProductDetailContainer from './components/ProductDetail/ProductDetailContainer'
-import ListContainer from './components/ProductList/ListCointainer'
+import { ItemDetailContainer } from './components/ItemDetailContainer/ItemDetailContainer'
+
 
 function App() {
   return (
-    <>
-      
-      <BrowserRouter>
-        <NavBar/>
+    <div className='App'>
+      <Navbar />
+      <main>
         <Routes>
-          <Route  path="/" element={<Home/>} />
-          <Route  path="/contact" element={<Contact/>} />
-          <Route  path="/product" element={<Products/>} />
-          <Route  path="/detail/:id" element={<ProductDetailContainer/>} />
-          <Route  path="/login" element={<Login/>} />
-          <Route  path="/register" element={<Register/>} />
-          <Route  path="/cart" element={<Cart/>} />
-          <Route  path="/category/:categoryId" element={<ListContainer/>} />
-          <Route  path="/title/:titleId" element={<ListContainer/>} />
-          <Route  path="/product/detail/:productId" element={<ListContainer/> } />
+          <Route path='/' element={<Home />} />
+          <Route path='/products' element={<Products />} />
+          <Route path='/products/category/:id' element={<Products />} />
+          <Route path='/products/detail/:id' element={<ItemDetailContainer />} />
+          <Route path='*' element={<div>Aun no hay nada por aqui!</div>} />
         </Routes>
-      </BrowserRouter>
-    </>
-
+        <CartWidget />
+      </main>
+    </div>
   )
 }
 
-
-
-export default App;
+export default App
