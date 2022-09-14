@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import ItemList from '../ItemList/ItemList.js'
 import styles from './style.module.css'
 import React from 'react'
-import { getProductosByCategory, getProductosByTitle } from '../ProductDetail/asyncmock'
+import { getProductosByCategory, getProductosByTitle } from '../../asyncmock'
 import { useParams } from 'react-router-dom'
 
 
