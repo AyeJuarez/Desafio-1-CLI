@@ -28,7 +28,6 @@ const Item = (props) => {
                             <CardButton text='Ver más...' />
                         </Link>
 
-                        {/* TODO Hacer que el boton agregue un solo item al carrito. Aun no funcional */}
                         <div href={`/products/detail/${id}`} className={styles['view-more']}>
                             <CardButton text='Añadir a la carrito' />
                         </div>

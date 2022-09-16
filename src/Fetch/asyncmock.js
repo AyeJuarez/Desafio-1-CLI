@@ -1,6 +1,6 @@
 
-const productos =
 
+const productos =
     [
         {
             "id": "1",
@@ -66,6 +66,7 @@ const productos =
             "description": "Aqui veremos la descripcion del producto"
         }
     ]
+
 
 export const getProductos = () => {
     return new Promise((resolve, reject) => {

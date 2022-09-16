@@ -1,4 +1,4 @@
-
+{"productos":
 [
     {
         "id": "1",
@@ -64,3 +64,5 @@
         "description": "Aqui veremos la descripcion del producto"
     }
 ]
+}
+

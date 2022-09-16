@@ -1,32 +1,41 @@
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+
+/*import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom' */
 import ItemDetail from '../ItemDetail/ItemDetail'
 import { Loader } from '../Loader'
 
-export const ItemDetailContainer = () => {
-    const { id } = useParams()
-    const [product, setProduct] = useState({})
-    const [loading, setLoading] = useState(true)
+const ItemDetailContainer = () => {
 
-    const getProduct = async () => {
-        const response = await fetch(`../productos.json`);
-        const data = await response.json()
-        return data.record
-    }
+    const productList = document.querySelector("product-list");
 
-    useEffect(() => {
-        setLoading(true)
-        getProduct().then((data) => {
-            const filtrado = data.filter((item) => item.id === Number(id))
-            setProduct(filtrado[0])
-            setLoading(false)
-        })
-    }, [id])
+    const generateProductos = (data) => {
+        data.productos.forEach(product => {
+            const newProductDiv = document.createElement('div');
+
+            newProductDiv.classList.add("px-6", "pt-4", "pb-2");
+
+            const productHTML = `
+        <p>${product.title}</p>
+        <p>${product.description}</p>
+        <p>${product.img}</p>`;
+
+            newProductDiv.innerHTML = productHTML;
+
+            productList.appendChild(newProductDiv);
+        });
+    };
+
+    fetch("/productos.json")
+        .then(response => response.json())
+        .then(data => generateProductos(data))
+
 
     return (
         <>
-            {loading && <Loader></Loader>}
-            {!loading && <ItemDetail product={product} />}
+            <Loader></Loader>
+            { <ItemDetail />}
         </>
     )
 }
+
+export default ItemDetailContainer

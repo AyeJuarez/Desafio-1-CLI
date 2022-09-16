@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styles from './styles.module.css'
 
 const ItemCount = (props) => {
-    const { id, stock } = props
+    const { id, stock, addItem, item, qty } = props
 
     const [items, setItems] = useState(1)
 
@@ -25,7 +25,7 @@ const ItemCount = (props) => {
                     <div className={styles.control} onClick={onDecrement}>
                         -
                     </div>
-                    <div className={styles.control} onClick={onAdd}>
+                    <div className={styles.control} onClick={()=> addItem(item, qty)}>
                         +
                     </div>
                 </div>
