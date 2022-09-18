@@ -2,7 +2,7 @@ import React from 'react';
 import './NavBar.css';
 import {NavLink} from 'react-router-dom';
 
-const NavBar = () => {
+export const NavBar = () => {
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
@@ -16,10 +16,13 @@ const NavBar = () => {
                                 <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/product">Productos</NavLink>
+                                <NavLink className="nav-link" to="/categoria/accesorios">Accesorios</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/contact">Contactos</NavLink>
+                                <NavLink className="nav-link" to="/categoria/mujeres">Mujeres</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/categoria/hombres">Hombres</NavLink>
                             </li>
                         </ul>
                         <div className='buttons'>
@@ -41,5 +44,3 @@ const NavBar = () => {
         </div>
     )
 }
-
-export default NavBar

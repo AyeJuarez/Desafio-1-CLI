@@ -1,6 +1,6 @@
 
 
-const productos =
+export const products =
     [
         {
             "id": "1",
@@ -66,39 +66,4 @@ const productos =
             "description": "Aqui veremos la descripcion del producto"
         }
     ]
-
-
-export const getProductos = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(productos)
-        }, 2000)
-    })
-}
-
-export const getProductosByCategory = (categoryId) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(productos.filter(product => product.category === categoryId))
-        }, 2000)
-    })
-}
-
-
-export const getProductosByTitle = (titleId) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(productos.filter(product => product.title === titleId))
-        }, 2000)
-    })
-}
-
-export const getProductosById = (id) => {
-    return new Promise((resolve, reject) => {
-
-        setTimeout(() => {
-            resolve(productos.find(product => product.id === id))
-        }, 2000)
-    })
-}
 

@@ -1,48 +1,37 @@
-import { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { CartContext } from '../../Context/useContext'
-import { ItemCount } from '../ItemCount'
-import styles from './styles.module.css'
- 
+import { useCartContext } from "../../Context/CartContext"
+import { Count } from "../ItemCount/ItemCount"
+
+import './styles.module.css'
 
 
-const ItemDetail = ({ productos }) => {
-    const [add, setAdd] = useState(false)
-    
-    const {addItem} = useContext(CartContext)
+export const ItemDetail = ({ item }) => {
 
-    const { img, title, description } = productos
+    const { addToCart } = useCartContext()
+
+
+
+    const onAdd = (quantity) => {
+        const newItem = {
+            ...item,
+            quantity
+        }
+        addToCart(newItem)
+    }
+
     return (
-        <div className={styles.container}>
-            <div className={styles['hero-header']}>
-                <img src={img} alt='' />
+        <article>
+            <h1>{item.title}</h1>
+            <div className="card-detail">
+                <div className="card-detail-left">
+                    <img src={item.img} alt={item.title} className="img" />
+                </div>
+                <div className="card-detail-right">
+                    <p>{item.description}</p>
+                    <p className="price">${item.price}</p>
+                    <p>Stock: {item.stock}</p>
+                    <Count stock={item.stock} initial={0} onAdd={onAdd} />
+                </div>
             </div>
-
-            <div id={styles['heading-info']}>
-                <h1>{title}</h1>
-                <span className={styles.title}>de {title}</span>
-            </div>
-            <div id={styles['buy-section']}>
-                <h2>Agregar</h2>
-                {
-                    add ?
-                    <div>Agregado! </div>
-                    : <ItemCount stock={10} initial={1} addItem={addItem}/>
-                }
-                
-            </div>
-            <div id={styles['resume']}>
-                <h2>Resumen</h2>
-                <p className={styles.description}>{description}</p>
-            </div>
-            <div id={styles['more-section']}>
-                <h2>Contenido relacionado</h2>
-            </div>
-            <Link to="/cart">
-                Finalizar Comprar
-            </Link>
-        </div>
+        </article>
     )
 }
-
-export default ItemDetail

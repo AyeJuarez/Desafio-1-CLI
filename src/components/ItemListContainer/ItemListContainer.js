@@ -1,32 +1,42 @@
-import { useEffect, useState } from 'react'
-import ItemList from '../ItemList/ItemList.js'
-import Loader from '../Loader/Loader.js'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { products } from '../../Fetch/asyncmock'
+import { ItemList } from '../ItemList/ItemList'
+import { useParams } from 'react-router-dom';
 
 
-const ItemListContainer = ({ categoryId, titleId }) => {
-    const [items, setItems] = useState([])
-    const [loading, setLoading] = useState(false)
+export const ItemListContainer = () => {
+    const [productList, setProductList] = useState([])
 
+    const { categoria } = useParams()
+
+
+    const getProducts = () => new Promise((resolve, reject) => {
+        if (categoria) {
+            setTimeout(() => resolve(products.filter(item => item.category === categoria)), 2000)
+        } else {
+            setTimeout(() => resolve(products), 2000)
+        }
+    })
 
     useEffect(() => {
-        setLoading(true)
-        setTimeout(() => {
-            fetch("/productos.json")
-            .then(response => response.json())
-            .then(respJSON => {console.log(respJSON.results);setItems(respJSON.results);setLoading(false);})
-            .catch(error => console.log('Error', error))
-        }, 2000)
-    },[categoryId, titleId])
+        getProducts()
+            .then(products => setProductList(products))
+            .catch(error => console.error(error))
 
-return (
-    <div>
-        <h1>{titleId}</h1>
-        {
-            loading ? <Loader></Loader> : <ItemList items={items} />
+        return () => {
+            setProductList([])
         }
-    </div>
-)
-}
 
-export default ItemListContainer
+    }, [categoria])
+
+
+
+    return (
+        <>
+            {
+                productList.length ? <ItemList productList={productList} /> : <h1>Cargando...</h1>
+            }
+
+        </>
+    )
+}

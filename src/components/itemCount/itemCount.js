@@ -1,43 +1,28 @@
 import { useState } from 'react'
-import styles from './styles.module.css'
+import './styles.module.css'
 
-const ItemCount = (props) => {
-    const { id, stock, addItem, item, qty } = props
+export const Count = ({stock, initial = 1, onAdd}) => {
+    const [count, setCount] = useState(initial)
 
-    const [items, setItems] = useState(1)
-
-    const onAdd = () => {
-        if (items === stock) return
-        setItems(items + 1)
+    const addCounter = () => {
+        count < stock && setCount(count + 1)
     }
 
-    const onDecrement = () => {
-        if (items === 1) return
-        setItems(items - 1)
+    const subtractCounter = () => {
+        count > initial && setCount(count - 1)
     }
+
 
     return (
-        <>
-            <div className={styles['item-count-container']}>
-                <span>Cantidad: {items}</span>
-                <span className={styles.whispered}>{`(En existencias: ${stock})`}</span>
-                <div className={styles.controls}>
-                    <div className={styles.control} onClick={onDecrement}>
-                        -
-                    </div>
-                    <div className={styles.control} onClick={()=> addItem(item, qty)}>
-                        +
-                    </div>
-                </div>
+        <div className='counter-container'>
+            <p className='counter'>{count}</p>
+            <div className='button-container'>
+                <button className='button' onClick={subtractCounter}>-</button>
+                <button className='button' onClick={addCounter}>+</button>
             </div>
-            <div
-                className={styles['add-cart']}
-                onClick={() => alert(`Producto con id ${id} agregado con exito`)}
-            >
-                Agregar al carrito
-            </div>
-        </>
+            <button className='button button-buy' onClick={() => onAdd(count)}>Añadir al carrito</button>
+        </div>
     )
 }
 
-export default ItemCount
+

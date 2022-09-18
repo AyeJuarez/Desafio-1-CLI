@@ -1,17 +1,19 @@
-import { Item } from '../Item'
+import React from 'react'
+import { Card } from '../Item/Card'
 
-const ItemList = ({ items }) => {
+export const ItemList = ({ productList }) => {
+    console.log('Soy product List', productList)
+
+
+
+
+
     return (
-        <>
-            {items ? (
-                items.map((item) => {
-                    return <Item key={item.id} data={item} />
-                })
-            ) : (
-                // Mensaje que se mostrara en caso de que falle el fetch 
-                <p>Error al cargar los datos. Revisar Fetch</p>
-            )}
-        </>
+        <div style={{ display: 'flex' }}>
+            {
+                productList.map(item => <Card key={item.id} img={item.img} title={item.title} stock={item.stock} price={item.price} />)
+            }
+        </div>
+
     )
 }
-export default ItemList
