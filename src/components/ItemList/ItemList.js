@@ -1,19 +1,14 @@
 import React from 'react'
-import { Card } from '../Item/Card'
+import Item from "../Item/Item";
+
 
 export const ItemList = ({ productList }) => {
-    console.log('Soy product List', productList)
-
-
-
-
-
     return (
-        <div style={{ display: 'flex' }}>
-            {
-                productList.map(item => <Card key={item.id} img={item.img} title={item.title} stock={item.stock} price={item.price} />)
-            }
+        <div style={{ display: "flex" }}>
+            {productList.map((item) => {
+                return <Item data={item} />;
+            })}
         </div>
-
-    )
+    );
 }
+
