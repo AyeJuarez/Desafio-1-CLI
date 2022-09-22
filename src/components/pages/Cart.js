@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+/*import React, { useContext } from 'react'
 import { CartContext } from '../../Context/useContext'
 
 
@@ -22,4 +22,4 @@ const Cart = () => {
     )
 }
 
-export default Cart
+export default Cart */

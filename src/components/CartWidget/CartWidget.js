@@ -4,7 +4,7 @@ import styles from './style.module.css'
 import { useContext } from 'react'
 import { CartContext } from '../../Context/useContext'
 
-const CartWidget = () => {
+export const CartWidget = () => {
 
     const {products} = useContext(CartContext)
     let itemsInCart = 0;
@@ -22,4 +22,3 @@ const CartWidget = () => {
     )
 }
 
-export default CartWidget
