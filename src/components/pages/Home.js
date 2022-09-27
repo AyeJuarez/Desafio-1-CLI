@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ItemListContainer } from '../ItemListContainer/ItemListContainer'
 
 
 
-const Home = () => {
+ export const Home = () => {
     return (
         <div className='hero'>
             <div className="card-img">
@@ -12,9 +13,8 @@ const Home = () => {
                 </Link>
             </div>
 
-            
+            {ItemListContainer}
         </div>
     )
 }
 
-export default Home
