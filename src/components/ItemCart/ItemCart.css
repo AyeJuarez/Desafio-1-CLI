@@ -1,7 +1,9 @@
 .itemCart {
     display: flex;
-    max-width: 500px;
-    margin: 1rem auto;
+    flex-direction: row;
+    width: 500px;
+    margin: auto;
+
 }
 
 .itemCart img {

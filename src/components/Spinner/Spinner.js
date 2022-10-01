@@ -3,7 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 
-const Loader = () => {
+const Spinner = () => {
     return (
         <Box sx={{ display: 'flex' }}>
             <CircularProgress />
@@ -11,4 +11,4 @@ const Loader = () => {
     )
 }
 
-export default Loader
+export default Spinner

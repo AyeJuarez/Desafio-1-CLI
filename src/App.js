@@ -1,30 +1,44 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ItemDetailContainer } from './/components/ItemDetailContainer/ItemDetailContainer';
-import { ItemListContainer } from './/components/ItemListContainer/ItemListContainer';
-import { NavBar } from './/components/NavBar/NavBar';
-import { Cart } from './components/CartWidget/Cart';
-import { CartProvider } from './Context/CartContext';
-import {Home} from './/components/pages/Home'
+import React from 'react';
+import './style.css';
 
-function App() {
+// REACT - ROUTER - DOM
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+// COMPONENTS
+import Header from './components/Header/Header';
+import ResponsiveNavigation from './components/ResponsiveNavigation/ResposiveNavigation';
+
+// CONTEXT
+import { ItemsProvider } from './Context/ItemsContext';
+
+// pages
+import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Shop from './pages/Shop';
+import ItemDetail from './pages/ItemDetail/ItemDetail';
+import GenreType from './pages/GenreType';
+
+const App = () => {
   return (
-    <CartProvider>
-    <BrowserRouter>
-      <div className="App">
-        <NavBar />
-        <Routes>
-        <Route path='/home' element={<Home />} />
-          <Route path='/' element={<ItemListContainer />} />
-          <Route path='/categoria/:categoria' element={<ItemListContainer />} />
-          <Route path='/detalles/:id' element={<ItemDetailContainer />} />
-          <Route path='/cart' element={<Cart />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
-    </CartProvider>
+    <Router>
+      <ItemsProvider>
+        <div className='App'>
+          <Header />
+          <ResponsiveNavigation />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/shop' element={<Shop />} />
+            <Route path='/detail/:id' element={<ItemDetail />} />
+            <Route path='/category/:category' element={<GenreType />} />
+          </Routes>
+        </div>
+      </ItemsProvider>
+    </Router>
   );
+};
 
-}
+export default App;
 
-export default App
