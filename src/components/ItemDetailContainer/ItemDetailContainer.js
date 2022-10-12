@@ -1,21 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import { products } from '../../Fetch/asyncmock'
-import { ItemDetail } from '../ItemDetail/ItemDetail'
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import ItemDetail from "../ItemDetail/ItemDetail";
+import Loading from "../Loading/Loading";
 
-export const ItemDetailContainer = () => {
-    const { id } = useParams();
-    const [item, setItem] = useState([]);
-    const getProduct = () =>
-        new Promise((resolve, reject) => {
-            setTimeout(
-                () => resolve(products.find((product) => product.id === (id))),
-                2000
-            );
+const ItemDetailContainer = ({ product, onAdd }) => {
+    const [article, setArticle] = useState();
+    const [loading, setLoading] = useState(true);
+
+    const getProduct = () => {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                res(product);
+            }, 1000);
         });
+    };
+
     useEffect(() => {
+        let isSubscribed = true;
         getProduct()
-            .then((response) => setItem(response));
+            .then((data) => {
+                if (isSubscribed) {
+                    setArticle(data);
+                    setLoading(false);
+                }
+            })
+            .catch(() => console.log("rejected"));
+
+        return () => (isSubscribed = false);
+        //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    return <>{item ? <ItemDetail item={item} /> : <h1>Cargando...</h1>}</>;
-}
+
+    return loading ? (
+        <Loading text="Cargando..." />
+    ) : (
+        <div>
+            <ItemDetail product={article} onAdd={onAdd} />
+        </div>
+    );
+};
+
+export default ItemDetailContainer;
+

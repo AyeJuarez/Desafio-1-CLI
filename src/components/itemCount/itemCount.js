@@ -1,26 +1,47 @@
-import { useState } from 'react'
-import './styles.module.css'
+import React, { useState, useEffect } from "react";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 
-export const ItemCount = ({stock, item, initial = 1, onAdd, setProduct}) => {
-    const [count, setCount] = useState(initial)
-    const addCounter = () => {
-        count < stock && setCount(count + 1)
-    }
-    const subtractCounter = () => {
-        count > initial && setCount(count - 1)
-    }
+import "./ItemCount.scss";
+
+const ItemCount = ({ initial, min, max, setQuantity }) => {
+    const [counter, setCounter] = useState(initial);
+
+    const handleIncrement = () => {
+        counter < max ? setCounter(counter + 1) : console.log("Máximo alcanzado");
+    };
+
+    const handleDecrement = () => {
+        counter > min ? setCounter(counter - 1) : console.log("Mínimo alcanzado");
+    };
+
+    useEffect(() => {
+        setQuantity(counter);
+    }, [counter, setQuantity]);
+
     return (
-        <div className='counter-container'>
-            <p className='counter'>{count}</p>
-            <div className='button-container'>
-                <button className='button' onClick={subtractCounter}>-</button>
-                <button className='button' onClick={addCounter}>+</button>
+        <div className="counter" style={{ width: "15rem" }}>
+            <div className="counter__content">
+                <div className="counter__content-controls">
+                    <span
+                        className="counter__content-controls-subtract"
+                        onClick={handleDecrement}
+                    >
+                        <RemoveIcon />
+                    </span>
+                    <span className="counter__content-controls-value"> {counter} </span>
+                    <span
+                        className="counter__content-controls-add"
+                        onClick={handleIncrement}
+                    >
+                        <AddIcon />
+                    </span>
+                </div>
             </div>
-            <button className='button button-buy' onClick={() => {
-                onAdd(item, count)
-                setProduct(true)
-            }}>Añadir al carrito</button>
         </div>
-    )
-}
+    );
+};
+
+export default ItemCount;
+
 

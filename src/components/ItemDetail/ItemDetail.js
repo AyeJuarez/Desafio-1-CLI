@@ -1,41 +1,68 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { CartContext } from "../../Context/CartContext";
-import {ItemCount} from "../ItemCount/ItemCount";
-import './styles.module.css';
+import React, { useState, useEffect, useContext } from "react";
+import ItemCount from "../ItemCount/ItemCount";
+import Item from "../Item/Item";
+import CartContext from "../../Context/CartContext";
+
+import "./ItemDetail.scss";
 
 
-export const ItemDetail = ({item}) => {
-    const { addItem } = useContext(CartContext)
-    const [product, setProduct] = useState(false)
+const ItemDetail = ({ product }) => {
+    const { setCart, setQnt } = useContext(CartContext);
+    const [article, setArticle] = useState();
+
+    useEffect(() => {
+        setArticle(product);
+    }, [product]);
+
+    const style = {
+        marginBottom: "20px",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+    };
+
+    const styleButtom = {
+        width: "86%",
+        marginTop: "5px",
+        backgroundColor: "green",
+        color: "white",
+    };
+
+    const [quantity, setQuantity] = useState(1);
+
+    const handleClick = () => {
+        setQnt((value) => value + quantity);
+        article.quantity = quantity;
+
+        const prod = {
+            id: article.id,
+            title: article.title,
+            description: article.description,
+            stock: article.stock,
+            price: article.price,
+            categoryId: article.categoryId,
+            quantity: article.quantity,
+            gender: article.gender,
+            img: article.image,
+        };
+
+        setCart((value) => [...value, prod]);
+    };
+
     return (
-        <article>
-            <h1>{item.title}</h1>
-            <div className="card-detail">
-                <div className="card-detail-left">
-                    <img src={item.img} alt={item.title} className="img" />
-                </div>
-                <div className="card-detail-right">
-                    <p>{item.description}</p>
-                    <p className="price">${item.price}</p>
-                    <p>Stock: {item.stock}</p>
-                    {product ? (
-                        <Link to='/cart'>
-                            <button>
-                                Ir al carrito
-                            </button>
-                        </Link>
-                    ) : (
-                        <ItemCount
-                            item={item}
-                            stock={item.stock}
-                            initial={1}
-                            onAdd={addItem}
-                            setProduct={setProduct}
-                        />
-                    )}
-                </div>
-            </div>
-        </article>
-    )
-}
+        <div style={style} className="item-detail">
+            <Item product={product} />
+            <ItemCount
+                initial={1}
+                min={0}
+                max={product.stock}
+                setQuantity={setQuantity}
+            />
+            <IconButton color="primary" aria-label="add to shopping cart">
+                <AddShoppingCartIcon />
+            </IconButton>
+        </div>
+    );
+};
+
+export default ItemDetail;

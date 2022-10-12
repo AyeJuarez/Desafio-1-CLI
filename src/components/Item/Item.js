@@ -1,20 +1,28 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './styles.module.css'
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Item.scss";
 
+const Item = ({ product }) => {
+  const { title, description, price, image } = product;
 
-const Item = ({data}) => {
   return (
-    <div className='card-container' key={data.id}>
-        <h4>{data.title}</h4>
-        <div>
-            <img className='img' src={data.img} alt="Hola" />
+    <div className="link">
+      <Link to={`/item/${product.id}`}>
+        <div className="counter link__item" style={{ width: "15rem" }}>
+          <div className="counter__content">
+            <h5 className="card-title">{title}</h5>
+            <img
+              src={image}
+              className="card-img-top"
+              alt="Imagen de Producto"
+            />
+            <p>{description}</p>
+            <h6>${price}</h6>
+          </div>
         </div>
-        <p className='price'>{data.price} $</p>
-        <Link to={`/detalles/${data.id}`}>
-          <button className='button button-detail'>Ver mas detalles</button>
-        </Link>
+      </Link>
     </div>
-  )
-}
+  );
+};
+
 export default Item;
