@@ -1,55 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import CartIcon from "../CartIcon/CartIcon";
-import { Images } from "../../utils/images.js";
+import { useState } from 'react';
+import './Navbar.scss';
+import CartWidget from '../CartWidget'
+import { Icon, Icons } from '../styled-components/Icons'
 
-import "./Navbar.scss";
 
-const Navbar = () => {
-    return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <Link className="navbar-brand" to="/">
-                <img src={Images.Logo} alt="" />
-            </Link>
-            <div className="icon navbar-nav ">
-                <li>
-                    <Link className="nav-link" to="/cart">
-                        <CartIcon />
-                    </Link>
-                </li>
-            </div>
-            <button
-                className="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
+export default function Navbar() {
+  const [openState, setOpenState] = useState(false)
+
+  return <nav className="nav">
+    
+    <a href="/" className="siteTitle">Inicio</a>
+    <ul>
+      <li>
+        <a href="/contact">Contactanos</a>
+      </li>
+      <li>
+        <a href="/about">Sobre Nosotros</a>
+      </li>
+
+    
+        <Icons>
+          <CartWidget />
+          <Icon className={'menu'} onClick={() => setOpenState(!openState)}>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='inherit'
+              color='inherit'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-6 h-6'
             >
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item active">
-                        <Link className="nav-link" to="/">
-                            Inicio <span className="sr-only">(current)</span>
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/products">
-                            Productos
-                        </Link>
-                    </li>
-                    <li>
-                        <Link className="nav-link" to="/cart">
-                            <CartIcon />
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    );
-};
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+              />
+            </svg>
+          </Icon>
 
-export default Navbar;	
+        </Icons>
+        </ul>
+  </nav>
+  
+}

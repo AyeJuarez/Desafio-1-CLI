@@ -1,68 +1,97 @@
-import React, { useState, useEffect, useContext } from "react";
-import ItemCount from "../ItemCount/ItemCount";
-import Item from "../Item/Item";
-import CartContext from "../../Context/CartContext";
-
-import "./ItemDetail.scss";
-
+import styled from 'styled-components'
+import ItemCount from '../ItemCount/ItemCount'
+import { useCartContext } from '../../Context/CartContext'
+import { formatter } from '../../utils/utils'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const ItemDetail = ({ product }) => {
-    const { setCart, setQnt } = useContext(CartContext);
-    const [article, setArticle] = useState();
+    const { addItem } = useCartContext()
 
-    useEffect(() => {
-        setArticle(product);
-    }, [product]);
-
-    const style = {
-        marginBottom: "20px",
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column",
-    };
-
-    const styleButtom = {
-        width: "86%",
-        marginTop: "5px",
-        backgroundColor: "green",
-        color: "white",
-    };
-
-    const [quantity, setQuantity] = useState(1);
-
-    const handleClick = () => {
-        setQnt((value) => value + quantity);
-        article.quantity = quantity;
-
-        const prod = {
-            id: article.id,
-            title: article.title,
-            description: article.description,
-            stock: article.stock,
-            price: article.price,
-            categoryId: article.categoryId,
-            quantity: article.quantity,
-            gender: article.gender,
-            img: article.image,
-        };
-
-        setCart((value) => [...value, prod]);
-    };
+    function addProductToCart(product, quantity) {
+        const notify = () => toast(`Producto ${product.title} añadido!`)
+        notify()
+        addItem(product, quantity)
+    }
 
     return (
-        <div style={style} className="item-detail">
-            <Item product={product} />
-            <ItemCount
-                initial={1}
-                min={0}
-                max={product.stock}
-                setQuantity={setQuantity}
-            />
-            <IconButton color="primary" aria-label="add to shopping cart">
-                <AddShoppingCartIcon />
-            </IconButton>
-        </div>
-    );
-};
+        <ProductContainer>
+            <ToastContainer />
+            <ProductImageContainer id='image-area'>
+                <img
+                    src={`${product?.img}`}
+                    alt={product?.tinyDescription}
+                />
+            </ProductImageContainer>
+            <div id='info-area'>
+                <ProductInfo id='info-area' style={{ gridArea: 'info-area' }}>
+                    <h2 className='title'>{product?.title?.toUpperCase()}</h2>
+                    <span className='price'>{`${formatter.format(product?.price)}`}</span>
+                    <hr />
+                    <p>{product?.description}</p>
+                    <p className='info'>{`STOCK: ${product?.stock}`}</p>
+                </ProductInfo>
+                <hr />
+                <ItemCount addProductToCart={addProductToCart} product={product} />
+            </div>
 
-export default ItemDetail;
+        </ProductContainer>
+    )
+}
+export default ItemDetail
+
+const ProductContainer = styled.div`
+  display: grid;
+  place-content: center;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'image-area'
+    'info-area'
+    'sinopsis-area';
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      'image-area info-area'
+      'image-area info-area'
+      'sinopsis-area sinopsis-area';
+  }
+`
+const ProductImageContainer = styled.div`
+  grid-area: image-area;
+  max-width: 250px;
+  margin: 100px;
+  transition: transform 0.3s ease;
+  img {
+    width: 100%;
+  }
+  @media screen and (min-width: 768px) {
+    :hover {
+      transform: scale(1.4) translateY(10%);
+    }
+  }
+`
+const ProductInfo = styled.div`
+  padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  color: #333;
+  
+
+  .title {
+    font-weight: 300;
+    font-family: 'Inter';
+  }
+  .price {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  .info {
+    font-style: italic;
+    font-weight: bold;
+    color: inherit;
+  }
+`
+
+

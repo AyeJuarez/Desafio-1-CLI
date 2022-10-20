@@ -1,42 +1,72 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import Table from "../../components/Table/Table";
-import Checkout from "../../components/Checkout/Checkout";
-import CartContext from "../../Context/CartContext";
-
-import "./Cart.scss";
+import styled from 'styled-components'
+import CartItem from '../../components/CartItem'
+import EmptyCart from '../../components/EmptyCart'
+import { useCartContext } from '../../Context/CartContext'
+import CartCheckout from '../../components/Checkout/CartCheckout'
 
 const Cart = () => {
-    const { cart } = useContext(CartContext);
+    const { cart, updateItemQuantity, removeItem } = useCartContext()
 
-    const messageConditional = (
-        <div className="card text-center cart-message">
-            <div className="card-header">Ops!</div>
-            <div className="card-body">
-                <h5 className="card-title">¡Tu carrito está vacío!</h5>
-                <p className="card-text">
-                    ¿No sabés qué comprar? ¡Miles de productos te esperan!
-                </p>
-                <Link to="/" className="btn btn-primary">
-                    Ir a comprar
-                </Link>
-            </div>
-            <div className="card-footer text-muted">Jabali Motors</div>
-        </div>
-    );
+    const addItem = (id, quantity) => {
+        updateItemQuantity(id, quantity + 1)
+    }
 
-    return (
-        <div className="cart">
-            {cart.length === 0 ? (
-                messageConditional
-            ) : (
-                <div>
-                    <Table />
-                    <Checkout />
-                </div>
-            )}
-        </div>
-    );
-};
+    const decrementItem = (id, quantity) => {
+        updateItemQuantity(id, quantity - 1)
+    }
 
-export default Cart;
+    const deleteItem = (id) => {
+        removeItem(id)
+    }
+
+    if (cart.length > 0) {
+        return (
+            <CartContainer>
+                <CartList id='cart-list'>
+                    {cart.map((item, index) => {
+                        return (
+                            <>
+                                <CartItem
+                                    
+                                    key={item.id}
+                                    item={item}
+                                    addItem={addItem}
+                                    decrementItem={decrementItem}
+                                    deleteItem={deleteItem}
+                                />
+                                <hr key={index} />
+                            </>
+                        )
+                    })}
+                </CartList>
+                <CartCheckout />
+            </CartContainer>
+        )
+    } else {
+        return <EmptyCart />
+    }
+}
+export default Cart
+
+const CartContainer = styled.div`
+  display: grid;
+  grid-template-areas:
+    'cart-list'
+    'checkout';
+  @media screen and (min-width: 768px) {
+    grid-template-areas:
+      'cart-list checkout'
+      'cart-list checkout';
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+`
+
+const CartList = styled.div`
+  grid-area: cart-list;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0.5rem;
+`

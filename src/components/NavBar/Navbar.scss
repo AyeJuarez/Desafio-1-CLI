@@ -1,38 +1,47 @@
-.navbar {
-    color: white;
-    background-color: black !important;
+* {
+    box-sizing: border-box;
+}
 
-    .navbar-brand {
-        h2 {
-            margin-left: 40px;
-        }
+body {
+    margin: 0;
+}
 
-        img {
-            width: 200px;
-        }
-    }
+.nav {
+    background-color: rgb(24, 23, 22);
+    color: rgb(225, 234, 241);
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 2rem;
+    padding: 0 1rem;
+}
 
-    .navbar-collapse {
-        .ml-auto {
-            margin-right: 50px !important;
+.siteTitle {
+    font-size: 2rem;
+}
 
-            a {
-                font-size: 19px;
-            }
-        }
-    }
+.nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    color: rgb(37, 36, 35);
+}
 
-    .MuiBadge-badge {
-        margin: -2px;
-    }
+.nav a {
+    color: rgb(67, 99, 202);
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: .25rem;
+}
 
-    .icon {
-        display: none;
-    }
+.nav li.active {
+    background-color: rgb(182, 62, 62);
+}
 
-    @media only screen and (max-width: 992px) {
-        .icon {
-            display: block;
-        }
-    }
+.nav li:hover {
+    background-color: rgb(95, 44, 44);
 }
