@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
