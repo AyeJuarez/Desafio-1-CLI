@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import ItemCount from '../ItemCount/ItemCount'
+import ItemCount from '../itemCount/itemCount'
 import { useCartContext } from '../../Context/CartContext'
 import { formatter } from '../../utils/utils'
 import { ToastContainer, toast } from 'react-toastify'
